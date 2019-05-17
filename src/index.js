@@ -4,16 +4,13 @@ import './index.css';
 import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import {takeEvery, put} from 'redux-saga/effects';
+import axios from 'axios';
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
-
-// Create the rootSaga generator function
-function* rootSaga() {
-
-}
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -26,7 +23,7 @@ const images = (state = [], action) => {
         default:
             return state;
     }
-}
+};//end images
 
 // Used to store the images tags (e.g. 'Inspirational', 'Calming', 'Energy', etc.)
 const tags = (state = [], action) => {
@@ -36,7 +33,7 @@ const tags = (state = [], action) => {
         default:
             return state;
     }
-}
+};//end tags
 
 // Create one store that all components can use
 const storeInstance = createStore(
@@ -47,6 +44,22 @@ const storeInstance = createStore(
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
 );
+
+// Create the rootSaga generator function
+function* rootSaga() {
+    yield takeEvery('FETCH_IMAGES', fetchImages)
+};//end rootSaga
+
+function* fetchImages(){
+    try{
+        const allTheImages = yield axios.get('/api/images');
+        console.log('allTheImages.data:', allTheImages.data)
+        yield put({type: 'SET_IMAGES', payload: allTheImages.data})
+    }catch(error){
+        console.log('error in get images:', error)
+    }
+};//end fetchImages
+
 
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
