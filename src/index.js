@@ -48,7 +48,13 @@ const storeInstance = createStore(
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_IMAGES', fetchImages)
+    yield takeEvery('FETCH_TAGS', fetchTags)
 };//end rootSaga
+
+function* fetchTags(){
+    const allTheTags = yield axios.get('/api/tags')
+    yield put({type: 'SET_TAGS', payload: allTheTags.data})
+};//end fetchTags
 
 function* fetchImages(){
     try{
