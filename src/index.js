@@ -56,6 +56,7 @@ function* addTag(action){
     try{
         console.log('addTag action.img:', action.img)
         console.log('addTag action.tag:', action.tag)
+        yield axios.post('/api/images/addtag', {img: action.img, tag: action.tag})
     }catch(error){
         console.log('error in addTag post:', error)
     }
