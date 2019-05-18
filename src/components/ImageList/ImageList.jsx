@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Button, FormControl, FormHelperText, Select, MenuItem, InputLabel} from '@material-ui/core';
+import { Chip, Card, CardHeader, CardMedia, CardActions, IconButton, Button, FormControl, FormHelperText, Select, MenuItem} from '@material-ui/core';
+import {ArrowBack, ArrowForward} from '@material-ui/icons';
 
 class ImageList extends Component{
+
+	handleChipClick = (event) => {
+		console.log('chip clicked!')
+	}
 
 	handleTag = (event) => {
 		console.log('in handleTag')
@@ -15,42 +20,39 @@ class ImageList extends Component{
 
 	render(){
 		return(
-			// <Card key={image.id}>
-			// 	<CardHeader
-			// 		title={image.title}
-			// 	/>
-			// 	<CardMedia
-			// 		image={image.path}
-			// 		title={image.title}
-			// 	/>
-			// 	<CardActions disableActionSpacing>
-			// 		<IconButton aria-label="Previous Image">
-			// 			<ArrowBack />
-			// 		</IconButton>
-			// 		<IconButton aria-label="Next Image">
-			// 			<ArrowForward />
-			// 		</IconButton>
-			// 	</CardActions>
-			// </Card>
-			<div>
-				<img src={this.props.image.path} alt={this.props.image.title} />
-				<Button variant="contained"
-					color="primary" >Previous Image</Button>
+			<Card className="imageCard">
+				<CardHeader/>
+				<CardMedia
+					component="img"
+					image={this.props.image.path}
+					title={this.props.image.title}/>
+				<CardActions disableActionSpacing>
 
-				<FormControl variant="outlined" onChange={this.handleTag}>
-					<Select value="" name="tag" displayEmpty>
-						<MenuItem value="" disabled>How does this image make you feel?</MenuItem>
+					<Button variant="contained"
+						color="primary" >Previous Image</Button>
+					
+					<FormControl variant="outlined" onChange={this.handleTag}>
+						<Select value="" name="tag" displayEmpty>
+							<MenuItem value="" disabled>How does this image make you feel?</MenuItem>
 							{this.props.reduxState.tags.map((tag) => {
 								return (
 									<MenuItem key={tag.id} value={tag.id}>{tag.name}</MenuItem>
 								)
 							})}
-					</Select>
-					<FormHelperText>Add a tag to this image if you'd like!</FormHelperText>
-				</FormControl>
-				<Button variant="contained"
-					color="primary" >Next Image</Button>
-			</div>
+						</Select>
+						<FormHelperText>Add a tag to this image if you'd like!</FormHelperText>
+					</FormControl>
+
+					<Button variant="contained"
+						color="primary" >Next Image</Button>
+
+					<br></br>
+					<Chip
+						label="Clickable Deletable Chip"
+						onClick={this.handleChipClick}/>
+
+				</CardActions>
+			</Card>
 		)
 	}
 }
