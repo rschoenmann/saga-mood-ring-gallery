@@ -6,9 +6,9 @@ const router = express.Router();
 // POST - add tag to an image
 router.post('/', (req, res) => {
 	const postTag = req.body
-	console.log('POST req.body:', req.body)
+	console.log('POST req.body:', req.params)
 	// const queryText;
-	const queryValues = [];
+	//const queryValues = [];
 
 	// pool.query(queryText, queryValues)
 	// 	.then(() => { res.sendStatus(200); })

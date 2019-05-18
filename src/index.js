@@ -49,7 +49,17 @@ const storeInstance = createStore(
 function* rootSaga() {
     yield takeEvery('FETCH_IMAGES', fetchImages)
     yield takeEvery('FETCH_TAGS', fetchTags)
+    yield takeEvery('ADD_TAG', addTag)
 };//end rootSaga
+
+function* addTag(action){
+    try{
+        console.log('addTag action.img:', action.img)
+        console.log('addTag action.tag:', action.tag)
+    }catch(error){
+        console.log('error in addTag post:', error)
+    }
+}
 
 function* fetchTags(){
     const allTheTags = yield axios.get('/api/tags')
