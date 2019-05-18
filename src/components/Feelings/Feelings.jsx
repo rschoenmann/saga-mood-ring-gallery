@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import {Card, CardHeader, CardMedia, CardActions, IconButton} from '@material-ui/core';
+import {Button, Card, CardHeader, CardMedia, CardActions, IconButton} from '@material-ui/core';
 // import {ArrowBack, ArrowForward} from '@material-ui/icons';
 
 class Feelings extends Component {
@@ -9,6 +9,12 @@ class Feelings extends Component {
 		this.showImages();
 		this.showTags();
 	};//end componentDidMount
+
+	handleTag = () => {
+		//send dispatch to sagaWatcher to trigger addTag saga
+		this.props.dispatch({type: 'ADD_TAG'})
+
+	};//end handleTag
 
 	showTags = () => {
 		//send dispatch to our sagaWatcher to trigger fetchTags saga
@@ -47,14 +53,19 @@ class Feelings extends Component {
 							// </Card>
 							<div> 
 								<img key={image.id} src={image.path} alt={image.title} />
+								<Button variant="contained"
+									color="primary" >Previous Image</Button>
+
 								<select >
-									<option selected disabled>How does this image make you feel?</option>
+									<option selected disabled onChange={this.handleTag}>How does this image make you feel?</option>
 									{this.props.reduxState.tags.map((tag) => {
 										return (
-											<option value={tag.id}>{tag.name}</option>
+											<option key={tag.id} value={tag.id}>{tag.name}</option>
 										)
 									})}
 								</select>
+								<Button variant="contained"
+									color="primary" >Next Image</Button>
 							</div>
 						)
 					})}

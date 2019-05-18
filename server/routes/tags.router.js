@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-// return all tags in database
+// GET - return all tags in database
 router.get('/', (req, res) => {
 	const queryText = `SELECT * FROM "tags" ORDER BY "id" ASC;`;
 	pool.query(queryText)
