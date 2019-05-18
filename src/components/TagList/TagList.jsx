@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 class TagList extends Component{
 	render(){
 		return(
-			<p>TAGS</p>
+			<p>tag component?</p>
 		)
 	}
 }

@@ -4,13 +4,9 @@ import {Button, Card, CardHeader, CardMedia, CardActions, IconButton} from '@mat
 // import {ArrowBack, ArrowForward} from '@material-ui/icons';
 import ImageList from '../ImageList/ImageList';
 import TagList from '../TagList/TagList';
+import ImageTags from '../ImageTags/ImageTags';
 
 class Feelings extends Component {
-
-	state = {
-		img_id: '',
-		tag_id: ''
-	}
 
 	componentDidMount(){
 		this.showImages();
@@ -35,10 +31,13 @@ class Feelings extends Component {
 					{this.props.reduxState.images.map((image) => {
 						// let url = `/public/${image.path}`
 						return (
-							<ImageList key={image.id} image={image} />
+							<>
+								<ImageList key={image.id} image={image} />
+								{/* <TagList /> */}
+								<ImageTags />
+							</>
 						)
 					})}
-					<TagList />
 			</div>
 		)
 	}
