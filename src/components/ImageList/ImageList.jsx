@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Button} from '@material-ui/core';
+import {Button, FormControl, FormHelperText, Select, MenuItem, InputLabel} from '@material-ui/core';
 
 class ImageList extends Component{
 
@@ -36,14 +36,18 @@ class ImageList extends Component{
 				<img src={this.props.image.path} alt={this.props.image.title} />
 				<Button variant="contained"
 					color="primary" >Previous Image</Button>
-				<select onChange={this.handleTag}>
-					<option selected disabled>How does this image make you feel?</option>
-					{this.props.reduxState.tags.map((tag) => {
-						return (
-							<option key={tag.id} value={tag.id}>{tag.name}</option>
-						)
-					})}
-				</select>
+
+				<FormControl variant="outlined" onChange={this.handleTag}>
+					<Select value="" name="tag" displayEmpty>
+						<MenuItem value="" disabled>How does this image make you feel?</MenuItem>
+							{this.props.reduxState.tags.map((tag) => {
+								return (
+									<MenuItem key={tag.id} value={tag.id}>{tag.name}</MenuItem>
+								)
+							})}
+					</Select>
+					<FormHelperText>Add a tag to this image if you'd like!</FormHelperText>
+				</FormControl>
 				<Button variant="contained"
 					color="primary" >Next Image</Button>
 			</div>

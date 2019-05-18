@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Button, Card, CardHeader, CardMedia, CardActions, IconButton} from '@material-ui/core';
+// import {Button, Card, CardHeader, CardMedia, CardActions, IconButton} from '@material-ui/core';
 // import {ArrowBack, ArrowForward} from '@material-ui/icons';
 import ImageList from '../ImageList/ImageList';
 import TagList from '../TagList/TagList';
