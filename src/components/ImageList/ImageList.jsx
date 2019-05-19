@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Chip, Card, CardHeader, CardMedia, CardActions, IconButton, Button, FormControl, FormHelperText, Select, MenuItem} from '@material-ui/core';
 import {ArrowBack, ArrowForward} from '@material-ui/icons';
+import ImageTags from '../ImageTags/ImageTags';
 
 class ImageList extends Component{
-
-	handleChipClick = (event) => {
-		console.log('chip clicked!')
-	}
 
 	handleTag = (event) => {
 		console.log('in handleTag')
@@ -20,10 +17,10 @@ class ImageList extends Component{
 
 	render(){
 		return(
+			<>
 			<Card className="imageCard">
 				<CardHeader/>
-				<CardMedia
-					component="img"
+				<CardMedia component="img"
 					image={this.props.image.path}
 					title={this.props.image.title}/>
 				<CardActions disableActionSpacing>
@@ -45,14 +42,24 @@ class ImageList extends Component{
 
 					<Button variant="contained"
 						color="primary" >Next Image</Button>
-
-					<br></br>
-					<Chip
-						label="Clickable Deletable Chip"
-						onClick={this.handleChipClick}/>
-
 				</CardActions>
 			</Card>
+				<ul>
+					<li>{this.props.image.tags}</li>
+				</ul>
+				{/* {this.props.reduxState.images.map((anObject) => {
+					if(anObject.tags && anObject.length){
+						return(
+							<p>TAGS</p>
+						)
+					}else{
+						return(
+							<p>NO TAGS SORRY</p>
+						)
+					}
+
+				})} */}
+			</>
 		)
 	}
 }

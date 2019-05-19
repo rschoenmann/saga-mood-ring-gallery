@@ -4,6 +4,7 @@ import ImageList from '../ImageList/ImageList';
 //import TagList from '../TagList/TagList';
 import ImageTags from '../ImageTags/ImageTags';
 
+
 class Feelings extends Component {
 
 	componentDidMount(){
@@ -29,8 +30,8 @@ class Feelings extends Component {
 						return (
 							<>
 								<ImageList key={image.id} image={image} />
-								{/* <TagList /> */}
 								<ImageTags />
+								{/* <TagList /> */}
 							</>
 						)
 					})}
