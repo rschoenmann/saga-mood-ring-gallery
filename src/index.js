@@ -20,6 +20,18 @@ const imageInfo = [
     {id: '', title: '', path: '', tags: []},
 ];
 
+// keep track of our index position in images array based on button clicks
+const indexCount = (state=0, action) => {
+    switch(action.type){
+        case 'NEXT_PAGE':
+			return state +1;
+		case 'PREVIOUS_PAGE':
+			return state -1;
+		default:
+			return state;
+    }
+};//end indexCount
+
 // Used to store images returned from the server
 const images = (state = imageInfo, action) => {
     switch (action.type) {
@@ -45,6 +57,7 @@ const storeInstance = createStore(
     combineReducers({
         images,
         tags,
+		indexCount
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

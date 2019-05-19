@@ -6,7 +6,6 @@ import TagList from '../TagList/TagList';
 
 class ImageList extends Component{
 
-
 	render(){
 		//pull out the tags key from our image object to display tag_id's associated with each image
 		let tagsToShow;
@@ -22,21 +21,24 @@ class ImageList extends Component{
 					title={this.props.image.title}/>
 				<CardActions disableActionSpacing>
 
-					<Button variant="contained"
-						color="primary" >Previous Image</Button>
+					<Button onClick={() => this.props.dispatch({type: 'PREVIOUS_PAGE'})}
+						variant="contained" color="primary" >Previous Image</Button>
 
-					<Button variant="contained"
-						color="primary" >Next Image</Button>
+					<Button onClick={() => this.props.dispatch({type: 'NEXT_PAGE'})}
+						variant="contained" color="primary" >Next Image</Button>
 				</CardActions>
 			</Card>
 				{tagsToShow}
+			<TagList />
 			</>
 		)
 	}
 }
 
 const mapReduxStateToProps = (reduxState) => ({
-	reduxState
+	images: reduxState.images,
+	tags: reduxState.tags,
+	indexCount: reduxState.indexCount
 });
 
 export default connect(mapReduxStateToProps)(ImageList);
