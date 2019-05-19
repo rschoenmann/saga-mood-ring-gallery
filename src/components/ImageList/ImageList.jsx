@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Chip, Card, CardHeader, CardMedia, CardActions, IconButton, Button, FormControl, FormHelperText, Select, MenuItem} from '@material-ui/core';
+import { Chip, Card, CardHeader, CardMedia, CardActions, IconButton, Button} from '@material-ui/core';
 import {ArrowBack, ArrowForward} from '@material-ui/icons';
-import ImageTags from '../ImageTags/ImageTags';
+import TagList from '../TagList/TagList';
 
 class ImageList extends Component{
 
-	handleTag = (event) => {
-		console.log('in handleTag')
-		console.log('event.target.value', event.target.value)
-		console.log('this.props.image.id', this.props.image.id)
-		//send dispatch to sagaWatcher to trigger addTag saga
-		//capture id of image clicked and id of tag selected as payload
-		this.props.dispatch({ type: 'ADD_TAG', tag: event.target.value, img: this.props.image.id})
-	};//end handleTag
 
 	render(){
+		//pull out the tags key from our image object to display tag_id's associated with each image
 		let tagsToShow;
 		if(this.props.image.tags.length > 0){
 			tagsToShow = (<p>{this.props.image.tags}</p>)
-		}else if(this.props.image.tags <= 0){
-			tagsToShow = (<p>No tags added to this image yet</p>)
 		}
 		return(
 			<>
@@ -33,18 +24,6 @@ class ImageList extends Component{
 
 					<Button variant="contained"
 						color="primary" >Previous Image</Button>
-					
-					<FormControl variant="outlined" onChange={this.handleTag}>
-						<Select value="" name="tag" displayEmpty>
-							<MenuItem value="" disabled>How does this image make you feel?</MenuItem>
-							{this.props.reduxState.tags.map((tag) => {
-								return (
-									<MenuItem key={tag.id} value={tag.id}>{tag.name}</MenuItem>
-								)
-							})}
-						</Select>
-						<FormHelperText>Add a tag to this image if you'd like!</FormHelperText>
-					</FormControl>
 
 					<Button variant="contained"
 						color="primary" >Next Image</Button>

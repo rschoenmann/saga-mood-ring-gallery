@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ImageList from '../ImageList/ImageList';
-//import TagList from '../TagList/TagList';
-import ImageTags from '../ImageTags/ImageTags';
-
+import TagList from '../TagList/TagList';
 
 class Feelings extends Component {
 
@@ -30,8 +28,7 @@ class Feelings extends Component {
 						return (
 							<>
 								<ImageList key={image.id} image={image} />
-								<ImageTags />
-								{/* <TagList /> */}
+								<TagList />
 							</>
 						)
 					})}
