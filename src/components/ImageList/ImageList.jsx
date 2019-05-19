@@ -19,6 +19,7 @@ class ImageList extends Component{
 		// let tagsToShow;
 		// if(this.props.image.tags.length > 0){
 		// 	tagsToShow = (<p>{this.props.image.tags}</p>)
+		console.log('this.props.image.id', this.props.image.id)
 		// }
 		return(
 			<>
@@ -32,7 +33,7 @@ class ImageList extends Component{
 						<Button variant="contained"
 							color="primary" >Previous Image</Button>
 
-						<FormControl variant="outlined" onChange={this.handleTag}>
+						<FormControl variant="outlined" onChange={this.handleChange}>
 							<Select value="" name="tag" displayEmpty>
 								<MenuItem value="" disabled>How does this image make you feel?</MenuItem>
 								{this.props.reduxState.tags.map((tag) => {

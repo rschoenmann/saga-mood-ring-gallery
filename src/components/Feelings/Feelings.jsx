@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ImageList from '../ImageList/ImageList';
-import TagList from '../TagList/TagList';
 
 class Feelings extends Component {
 
@@ -26,9 +25,9 @@ class Feelings extends Component {
 				<h2>Images:</h2>
 					{this.props.reduxState.images.map((image) => {
 						return (
-							<>
+							<div>
 								<ImageList key={image.id} image={image} />
-							</>
+							</div>
 						)
 					})}
 			</div>
