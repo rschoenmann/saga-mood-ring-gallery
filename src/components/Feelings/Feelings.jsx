@@ -28,7 +28,6 @@ class Feelings extends Component {
 						return (
 							<>
 								<ImageList key={image.id} image={image} />
-								
 							</>
 						)
 					})}
