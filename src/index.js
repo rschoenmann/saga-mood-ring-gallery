@@ -15,15 +15,11 @@ import createSagaMiddleware from 'redux-saga';
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// // maybe setting default image info will help?
-// const imageInfo = [
-//     {id: '', title: '', path: '', tags: []},
-// ];
-
 // keep track of our index position in images array based on button clicks
 const indexCount = (state=0, action) => {
     switch(action.type){
         case 'NEXT_PAGE':
+            if(state)
 			return state +1;
 		case 'PREVIOUS_PAGE':
 			return state -1;
@@ -75,6 +71,8 @@ function* addTag(action){
         console.log('addTag action.img:', action.img)
         console.log('addTag action.tag:', action.tag)
         yield axios.post('/api/images/addtag', {img: action.img, tag: action.tag})
+        // after we send post, need to update our reduxState with new tag info so we call another get
+        yield put({type: 'FETCH_IMAGES'})
     }catch(error){
         console.log('error in addTag post:', error)
     }

@@ -5,6 +5,50 @@ import {ArrowBack, ArrowForward} from '@material-ui/icons';
 
 class ImageList extends Component{
 
+	state = {
+		imageId: '',
+		tagId: 0,
+		index: 0
+	}
+
+	componentDidMount(){
+		this.setState({
+			imageId: this.props.image.id
+		})
+	};//end componentDidMount
+
+	handleNext = () => {
+		//if local index state is equal to length or images array -1, set index to
+		//zero to loop back to first image in array
+		if(this.state.index === this.props.reduxState.images.length-1){
+			this.setState({
+				index: 0
+			})
+		}else{
+			this.setState({
+				index: this.state.index+1
+			})
+		}
+		console.log('this.state.index:', this.state.index)
+	};//end handleNext
+
+	handlePrevious = () =>{
+		//if local index state is already at zero, set it to length of image array minus
+		//one to loop back through to the end of the array
+		if(this.state.index === 0){
+			this.setState({
+				index: this.props.reduxState.images.length-1
+			})
+		}else{
+			this.setState({
+				index: this.state.index -1
+			})
+		}
+
+		console.log('this.state.index:', this.state.index)
+	};//end handlePrevious
+
+
 	handleChange = (event) => {
 		console.log('in handleTag')
 		console.log('event.target.value', event.target.value)
@@ -15,12 +59,6 @@ class ImageList extends Component{
 	};//end handleTag
 
 	render(){
-		//pull out the tags key from our image object to display tag_id's associated with each image
-		// let tagsToShow;
-		// if(this.props.image.tags.length > 0){
-		// 	tagsToShow = (<p>{this.props.image.tags}</p>)
-		console.log('this.props.image.id', this.props.image.id)
-		// }
 		return(
 			<>
 				<Card className="imageCard">
@@ -30,23 +68,20 @@ class ImageList extends Component{
 						title={this.props.image.title} />
 					<CardActions disableActionSpacing>
 
-						<Button variant="contained"
+						<Button variant="contained" onClick={this.handlePrevious}
 							color="primary" >Previous Image</Button>
 
-						<FormControl variant="outlined" onChange={this.handleChange}>
-							<Select value="" name="tag" displayEmpty>
-								<MenuItem value="" disabled>How does this image make you feel?</MenuItem>
-								{this.props.reduxState.tags.map((tag, i) => {
-									return (
-										<MenuItem key={i} value={tag.id}>{tag.name}</MenuItem>
-									)
-								})}
-							</Select>
-							<FormHelperText>Add a tag to this image if you'd like!</FormHelperText>
-						</FormControl>
+						<select onChange={this.handleChange}>
+							<option selected disabled>How does this image make you feel?</option>
+							{this.props.reduxState.tags.map((tag) => {
+								return (
+									<option key={tag.id} value={tag.id}>{tag.name}</option>
+								)
+							})}
+						</select>
 
-						<Button variant="contained"
-							color="primary" >Next Image</Button>
+						<Button variant="contained" onClick={this.handleNext}
+							color="primary">Next Image</Button>
 					</CardActions>
 				</Card>
 				<ul>
