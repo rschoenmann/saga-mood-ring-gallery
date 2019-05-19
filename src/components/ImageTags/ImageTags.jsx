@@ -7,7 +7,6 @@ class ImageTags extends Component{
 		//console.log('this.props.reduxState.images:', this.props.reduxState)
 		return(
 			<div className="imageTagDiv">
-				<pre>{JSON.stringify(this.props.reduxState.images)}</pre>
 			{/* <ul>
 				{this.props.reduxState.images.map((object) => {
 					if(object.tags !=null){

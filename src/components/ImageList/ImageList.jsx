@@ -16,6 +16,12 @@ class ImageList extends Component{
 	};//end handleTag
 
 	render(){
+		let tagsToShow;
+		if(this.props.image.tags.length > 0){
+			tagsToShow = (<p>{this.props.image.tags}</p>)
+		}else if(this.props.image.tags <= 0){
+			tagsToShow = (<p>No tags added to this image yet</p>)
+		}
 		return(
 			<>
 			<Card className="imageCard">
@@ -44,21 +50,7 @@ class ImageList extends Component{
 						color="primary" >Next Image</Button>
 				</CardActions>
 			</Card>
-				<ul>
-					<li>{this.props.image.tags}</li>
-				</ul>
-				{/* {this.props.reduxState.images.map((anObject) => {
-					if(anObject.tags && anObject.length){
-						return(
-							<p>TAGS</p>
-						)
-					}else{
-						return(
-							<p>NO TAGS SORRY</p>
-						)
-					}
-
-				})} */}
+				{tagsToShow}
 			</>
 		)
 	}
