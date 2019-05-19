@@ -7,8 +7,7 @@ class ImageList extends Component{
 
 	state = {
 		imageId: '',
-		tagId: 0,
-		index: 0
+		tagId: 0
 	}
 
 	componentDidMount(){
@@ -16,37 +15,6 @@ class ImageList extends Component{
 			imageId: this.props.image.id
 		})
 	};//end componentDidMount
-
-	handleNext = () => {
-		//if local index state is equal to length or images array -1, set index to
-		//zero to loop back to first image in array
-		if(this.state.index === this.props.reduxState.images.length-1){
-			this.setState({
-				index: 0
-			})
-		}else{
-			this.setState({
-				index: this.state.index+1
-			})
-		}
-		console.log('this.state.index:', this.state.index)
-	};//end handleNext
-
-	handlePrevious = () =>{
-		//if local index state is already at zero, set it to length of image array minus
-		//one to loop back through to the end of the array
-		if(this.state.index === 0){
-			this.setState({
-				index: this.props.reduxState.images.length-1
-			})
-		}else{
-			this.setState({
-				index: this.state.index -1
-			})
-		}
-
-		console.log('this.state.index:', this.state.index)
-	};//end handlePrevious
 
 
 	handleChange = (event) => {
@@ -68,8 +36,7 @@ class ImageList extends Component{
 						title={this.props.image.title} />
 					<CardActions disableActionSpacing>
 
-						<Button variant="contained" onClick={this.handlePrevious}
-							color="primary" >Previous Image</Button>
+						
 
 						<select onChange={this.handleChange}>
 							<option selected disabled>How does this image make you feel?</option>
@@ -80,8 +47,7 @@ class ImageList extends Component{
 							})}
 						</select>
 
-						<Button variant="contained" onClick={this.handleNext}
-							color="primary">Next Image</Button>
+						
 					</CardActions>
 				</Card>
 				<ul>
