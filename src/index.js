@@ -15,10 +15,10 @@ import createSagaMiddleware from 'redux-saga';
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// maybe setting default image info will help?
-const imageInfo = [
-    {id: '', title: '', path: '', tags: []},
-];
+// // maybe setting default image info will help?
+// const imageInfo = [
+//     {id: '', title: '', path: '', tags: []},
+// ];
 
 // keep track of our index position in images array based on button clicks
 const indexCount = (state=0, action) => {
@@ -33,7 +33,7 @@ const indexCount = (state=0, action) => {
 };//end indexCount
 
 // Used to store images returned from the server
-const images = (state = imageInfo, action) => {
+const images = (state = [], action) => {
     switch (action.type) {
         case 'SET_IMAGES':
             return action.payload;

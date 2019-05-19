@@ -36,9 +36,9 @@ class ImageList extends Component{
 						<FormControl variant="outlined" onChange={this.handleChange}>
 							<Select value="" name="tag" displayEmpty>
 								<MenuItem value="" disabled>How does this image make you feel?</MenuItem>
-								{this.props.reduxState.tags.map((tag) => {
+								{this.props.reduxState.tags.map((tag, i) => {
 									return (
-										<MenuItem key={tag.id} value={tag.id}>{tag.name}</MenuItem>
+										<MenuItem key={i} value={tag.id}>{tag.name}</MenuItem>
 									)
 								})}
 							</Select>
