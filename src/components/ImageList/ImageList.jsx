@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Chip, Card, CardHeader, CardMedia, CardActions, IconButton, Button, FormControl, FormHelperText, Select, MenuItem} from '@material-ui/core';
 import {ArrowBack, ArrowForward} from '@material-ui/icons';
-//import './ImageList.css';
+import './ImageList.css';
 
 class ImageList extends Component{
 
@@ -46,7 +46,7 @@ class ImageList extends Component{
 						image={this.props.image.path}
 						title={this.props.image.title} />
 					<CardActions disableActionSpacing>
-					<select onChange={this.handleChange}>
+					<select onChange={this.handleChange} className="dropdown">
 						<option selected disabled>How does this image make you feel?</option>
 						{this.props.reduxState.tags.map((tag) => {
 							return (
@@ -54,12 +54,19 @@ class ImageList extends Component{
 							)
 						})}
 					</select>	
-						<Button onClick={this.handleSubmit} variant="contained" color="secondary"> Add My Feeling </Button>
+						<Button onClick={this.handleSubmit} variant="contained" color="secondary" className="submitButton">Add Tag</Button>
 
 						{this.props.reduxState.tagsAndImages.map((aTag) => {
 							if (aTag.id === this.state.imgId) {
 								return (
+									<div>
+										<p>Tags on this image:</p>
 									<p>{aTag.name}</p>
+									</div>
+								)
+							}else{
+								return(
+									<p>Add a tag to your image!</p>
 								)
 							}
 						})}

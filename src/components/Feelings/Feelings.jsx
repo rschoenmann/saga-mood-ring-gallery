@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ImageList from '../ImageList/ImageList';
 import {Button} from '@material-ui/core';
+import './Feelings.css';
 
 class Feelings extends Component {
 
@@ -61,14 +62,16 @@ class Feelings extends Component {
 				{this.props.reduxState.images.map((image) => {
 					if(image.id-1 === index){
 						return (
-							<div>
-								<ImageList key={image.id} image={image} />
+							<div className="FeelingsDiv">
 
 								<Button variant="contained" onClick={this.handlePrevious}
-									color="primary" >Previous Image</Button>
+									color="primary" className="previousButton">Previous Image</Button>
 
 								<Button variant="contained" onClick={this.handleNext}
-									color="primary">Next Image</Button>
+									color="primary" className="nextButton">Next Image</Button>
+									
+								<ImageList key={image.id} image={image} />
+
 							</div>
 						)
 					}
