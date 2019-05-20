@@ -12,9 +12,7 @@ class ImageList extends Component{
 	}
 
 	componentDidMount(){
-		// this.setState({
-		// 	imageId: this.props.image.id
-		// })
+		this.props.dispatch({type: 'DISPLAY_TAG'})
 	};//end componentDidMount
 
 
@@ -56,10 +54,23 @@ class ImageList extends Component{
 							)
 						})}
 					</select>	
-						<Button onClick={this.handleSubmit} variant="contained" color="secondary"> Add My Feeling </Button>					
+						<Button onClick={this.handleSubmit} variant="contained" color="secondary"> Add My Feeling </Button>
+
+						{this.props.reduxState.tagsAndImages.map((aTag) => {
+							if (aTag.id === this.state.imgId) {
+								return (
+									<p>{aTag.name}</p>
+								)
+							}
+						})}
+
+						
+						
 					</CardActions>
 				</Card>
-				<pre>{JSON.stringify(this.props.reduxState.tagsAndImages)}</pre>
+			
+					<pre>{JSON.stringify(this.props.reduxState.tagsAndImages)}</pre>
+				
 			</div>
 		)
 	}

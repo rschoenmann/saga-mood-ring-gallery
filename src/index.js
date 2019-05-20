@@ -35,10 +35,10 @@ const tags = (state = [], action) => {
     }
 };//end tags
 
-const tagsAndImages = (state=[], action) => {
+const tagsAndImages = (state = [], action) => {
     switch (action.type) {
         case 'GET_ALL_THINGS':
-            return console.log(action.payload);
+            return action.payload;
         default:
             return state;
     }
@@ -65,7 +65,7 @@ function* rootSaga() {
 
 function* displayTag(action){
     try{
-        const displayToRender = axios.get(`api/showtags?id=${action.payload.imageId}`)
+        const displayToRender = yield axios.get(`api/showtags?id=${action.payload.imageId}`)
         console.log('displayToRender.data:', displayToRender.data)
         console.log('displayTag action.payload:', action.payload)
         yield put({type: 'GET_ALL_THINGS', payload: displayToRender.data})
