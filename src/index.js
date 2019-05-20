@@ -15,19 +15,6 @@ import createSagaMiddleware from 'redux-saga';
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// keep track of our index position in images array based on button clicks
-const indexCount = (state=0, action) => {
-    switch(action.type){
-        case 'NEXT_PAGE':
-            if(state)
-			return state +1;
-		case 'PREVIOUS_PAGE':
-			return state -1;
-		default:
-			return state;
-    }
-};//end indexCount
-
 // Used to store images returned from the server
 const images = (state = [], action) => {
     switch (action.type) {
@@ -48,12 +35,21 @@ const tags = (state = [], action) => {
     }
 };//end tags
 
+const tagsAndImages = (state=[], action) => {
+    switch (action.type) {
+        case 'GET_ALL_THINGS':
+            return console.log(action.payload);
+        default:
+            return state;
+    }
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         images,
         tags,
-		indexCount
+        tagsAndImages
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
@@ -64,15 +60,27 @@ function* rootSaga() {
     yield takeEvery('FETCH_IMAGES', fetchImages)
     yield takeEvery('FETCH_TAGS', fetchTags)
     yield takeEvery('ADD_TAG', addTag)
+    yield takeEvery('DISPLAY_TAG', displayTag)
 };//end rootSaga
+
+function* displayTag(action){
+    try{
+        const displayToRender = axios.get(`api/showtags?id=${action.payload.imageId}`)
+        console.log('displayToRender.data:', displayToRender.data)
+        console.log('displayTag action.payload:', action.payload)
+        yield put({type: 'GET_ALL_THINGS', payload: displayToRender.data})
+    }catch(error){
+        console.log('error in displayTag:', error)
+    }
+}
 
 function* addTag(action){
     try{
-        console.log('addTag action.img:', action.img)
-        console.log('addTag action.tag:', action.tag)
-        yield axios.post('/api/images/addtag', {img: action.img, tag: action.tag})
+        console.log('addTag action.payload:', action.payload)
+        console.log('addTag action.payload.tagId:', action.payload.tagId)
+        yield axios.post('/api/images/addtag', action.payload)
         // after we send post, need to update our reduxState with new tag info so we call another get
-        yield put({type: 'FETCH_IMAGES'})
+        yield put({type: 'DISPLAY_TAG', payload: action.payload})
     }catch(error){
         console.log('error in addTag post:', error)
     }

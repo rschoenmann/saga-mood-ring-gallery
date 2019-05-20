@@ -54,29 +54,25 @@ class Feelings extends Component {
 		console.log('this.state.index:', this.state.index)
 	};//end handlePrevious
 
-
-
 	render(){
 		let index = this.state.index
 		return(
 			<div>
-				<h2>Images:</h2>
-					{this.props.reduxState.images.map((image) => {
-						if(image.id-1 === index){
-							return (
-								<div>
-									<ImageList key={image.id} image={image} />
+				{this.props.reduxState.images.map((image) => {
+					if(image.id-1 === index){
+						return (
+							<div>
+								<ImageList key={image.id} image={image} />
 
-									<Button variant="contained" onClick={this.handlePrevious}
-										color="primary" >Previous Image</Button>
+								<Button variant="contained" onClick={this.handlePrevious}
+									color="primary" >Previous Image</Button>
 
-									<Button variant="contained" onClick={this.handleNext}
-										color="primary">Next Image</Button>
-								</div>
-							)
-						}
-						
-					})}
+								<Button variant="contained" onClick={this.handleNext}
+									color="primary">Next Image</Button>
+							</div>
+						)
+					}
+				})}
 			</div>
 		)
 	}

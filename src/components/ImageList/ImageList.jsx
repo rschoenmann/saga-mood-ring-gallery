@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Chip, Card, CardHeader, CardMedia, CardActions, IconButton, Button, FormControl, FormHelperText, Select, MenuItem} from '@material-ui/core';
 import {ArrowBack, ArrowForward} from '@material-ui/icons';
+//import './ImageList.css';
 
 class ImageList extends Component{
 
 	state = {
-		imageId: '',
+		imageId: this.props.image.id,
 		tagId: 0
 	}
 
 	componentDidMount(){
-		this.setState({
-			imageId: this.props.image.id
-		})
+		// this.setState({
+		// 	imageId: this.props.image.id
+		// })
 	};//end componentDidMount
 
 
@@ -21,39 +22,45 @@ class ImageList extends Component{
 		console.log('in handleTag')
 		console.log('event.target.value', event.target.value)
 		console.log('this.props.image.id', this.props.image.id)
+		this.setState({
+			...this.state,
+			tagId: parseInt(event.target.value)
+		})
+	};//end handleTag
+
+	handleSubmit = (event) => {
+		this.setState({
+			...this.state,
+			tagId: event.target.value
+		})
 		//send dispatch to sagaWatcher to trigger addTag saga
 		//capture id of image clicked and id of tag selected as payload
-		this.props.dispatch({ type: 'ADD_TAG', tag: event.target.value, img: this.props.image.id })
-	};//end handleTag
+		this.props.dispatch({ type: 'ADD_TAG', payload: {imageId: this.props.image.id, tagId: this.state.tagId}})
+		// this.props.dispatch({ type: 'DISPLAY_TAG', payload: this.state })
+	}
 
 	render(){
 		return(
-			<>
+			<div className="polaroid">
 				<Card className="imageCard">
 					<CardHeader />
 					<CardMedia component="img"
 						image={this.props.image.path}
 						title={this.props.image.title} />
 					<CardActions disableActionSpacing>
-
-						
-
-						<select onChange={this.handleChange}>
-							<option selected disabled>How does this image make you feel?</option>
-							{this.props.reduxState.tags.map((tag) => {
-								return (
-									<option key={tag.id} value={tag.id}>{tag.name}</option>
-								)
-							})}
-						</select>
-
-						
+					<select onChange={this.handleChange}>
+						<option selected disabled>How does this image make you feel?</option>
+						{this.props.reduxState.tags.map((tag) => {
+							return (
+								<option key={tag.id} value={tag.id}>{tag.name}</option>
+							)
+						})}
+					</select>	
+						<Button onClick={this.handleSubmit} variant="contained" color="secondary"> Add My Feeling </Button>					
 					</CardActions>
 				</Card>
-				<ul>
-					<li>{this.props.image.tags}</li>
-				</ul>
-			</>
+				<pre>{JSON.stringify(this.props.reduxState.tagsAndImages)}</pre>
+			</div>
 		)
 	}
 }
