@@ -12,7 +12,7 @@ class ImageList extends Component{
 	}
 
 	componentDidMount(){
-		this.props.dispatch({type: 'DISPLAY_TAG'})
+		this.props.dispatch({type: 'DISPLAY_TAG', payload: {imageId: this.props.image.id}})
 	};//end componentDidMount
 
 
